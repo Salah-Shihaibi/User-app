@@ -9,9 +9,16 @@
     item1: 'dashboard',
     item2: 'home',
     item3: 'logout',
+    home: 'home',
     link1: '/dashboard',
     link2: '/home',
     link3: '/users/logout'    
   }); %>
+
+  <% include ./partials/homeLSB%>
+
+  <%- include('./partials/posts', {}); %>
+
+  <% include ./partials/homeRSB%>
 
   <% include ./partials/footer%>

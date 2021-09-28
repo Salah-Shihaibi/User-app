@@ -9,15 +9,15 @@
     item1: 'dashboard',
     item2: 'home',
     item3: 'logout',
+    home: 'Home',
     link1: '/dashboard',
     link2: '/home',
-    link3: '/users/logout'    
+    link3: '/users/logout',
+    deleteUser: true,    
   }); %>
   <% include ./partials/homeLSB%>
 
   <%- include('./partials/posts', {
-    user: user, 
-    posts: posts,
     URL: '/dashboard',
   }); %>
 

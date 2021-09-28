@@ -4,7 +4,9 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 // Load User model
 const User = require("../model/Users");
-const { forwardAuthenticated } = require("../config/auth");
+const Post = require("../model/Posts");
+
+const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth");
 
 // Login Page
 router.get("/login", forwardAuthenticated, (req, res) => res.render("login"));
@@ -15,7 +17,7 @@ router.get("/register", forwardAuthenticated, (req, res) =>
 );
 
 // Register
-router.post("/register", async (req, res) => {
+router.post("/register", forwardAuthenticated, async (req, res) => {
   const { name, email, password, password2 } = req.body;
   let errors = [];
 
@@ -137,4 +139,27 @@ router.get("/logout", (req, res) => {
   res.redirect("/users/login");
 });
 
+// delete a user
+// @route   DELETE user/:id
+router.delete("/:id", ensureAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.render("404");
+    }
+
+    if (user._id != req.user.id) {
+      res.render("error");
+    } else {
+      await Post.deleteMany({ user: req.params.id})
+      await User.deleteOne({ _id: req.params.id });
+      res.redirect('/');
+    }
+  } catch (err) {
+    console.error(err);
+    return res.render("error");
+  }
+});
+
+//edit users picture
 module.exports = router;

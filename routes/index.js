@@ -27,6 +27,19 @@ router.get("/home", ensureAuthenticated, async (req, res) => {
   //console.log(posts[0].user._id == req.user.id);
 });
 
+// view a profiles posts
+router.get("/post/profile/:id", ensureAuthenticated, async (req, res) => {
+  if(req.params.id == req.user.id){
+    res.redirect('/dashboard')
+  }else{
+  const userPosts = await Post.find({ user: req.params.id, status: true}).populate('user').exec();
+  res.render("viewProfile", {
+    user: req.user,
+    posts: userPosts.reverse(),
+  });
+}  
+});
+
 // add a post and redirect to home or posts
 router.post("/post", ensureAuthenticated, async (req, res) => {
   try {
@@ -105,7 +118,7 @@ router.delete("/post/:id", ensureAuthenticated, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) {
-      return res.render("error/404");
+      return res.render("404");
     }
 
     if (post.user != req.user.id) {
