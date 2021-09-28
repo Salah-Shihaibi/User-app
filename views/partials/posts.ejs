@@ -1,0 +1,33 @@
+<!-- Middle section -->
+
+<div class="col-sm-6">
+    <% include ./messages %>
+        <!-- Input post -->
+        <form class='add-form' id='postForm' style="display : none" action="/post" method="POST">
+            <div class="card card-body bg-light mb-4">
+                <div class="d-flex flex-start">
+                    <img class="rounded-circle shadow-1-strong me-3" src="<%= user.image %>" alt="avatar" width="40"
+                        height="40" />
+                    <div class="form-outline w-100 ml-2">
+                        <textarea id="description" name="description" class="form-control" rows="4"
+                            style="background: #fff;"
+                            value="<%= typeof description != 'undefined' ? description : '' %>"></textarea>
+                        <label class="form-label text-muted small" for="textAreaExample">Post
+                            here</label>
+                        <textarea id="image" name="image" class="form-control" rows="1" style="background: #fff;"
+                            value="<%= typeof image != 'undefined' ? image : '' %>"></textarea>
+                        <label class="form-label text-muted small" for="textAreaExample">Image URL
+                            here</label>
+                    </div>
+                </div>
+                <select id="status" name="status" class="form-control form-group col-md-4 form-control-sm">
+                    <option value=true selected>Public</option>
+                    <option value=false>Private</option>
+                </select>
+                <input id = 'URL' name="URL" value = <%= URL %> style="display: none;"></input>
+                <div class="float-end mt-2 pt-1">
+                    <button type="submit" class="btn btn-primary btn-sm">Post story</button>
+                </div>
+            </div>
+        </form>
+</div>

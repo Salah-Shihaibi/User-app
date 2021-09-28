@@ -1,0 +1,17 @@
+<script>
+  let postFormButton = document.getElementById('showPostForm');
+
+  postFormButton.addEventListener('click', togglePostForm);
+
+  let toggle = true;
+  function togglePostForm() {
+    let postForm = document.getElementById('postForm');
+    if (toggle) {
+      postForm.style.display = 'block';
+      toggle = !toggle
+    } else {
+      postForm.style.display = 'none';
+      toggle = !toggle
+    }
+  }
+</script>

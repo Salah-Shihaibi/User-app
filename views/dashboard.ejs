@@ -13,6 +13,15 @@
     link2: '/home',
     link3: '/users/logout'    
   }); %>
+  <% include ./partials/homeLSB%>
+
+  <%- include('./partials/posts', {
+    user: user, 
+    URL: '/dashboard'
+  }); %>
+
+  <% include ./partials/homeRSB%>
+  <% include ./partials/postScript%>
 
   <img src="<%= user.image %>" alt="me">
   <h3><%= user.name %></h3>
