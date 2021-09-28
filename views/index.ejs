@@ -1,6 +1,19 @@
-<div class="m-3">
-<p>Welcome to <%= title %>
-</p>
-<button class="btn btn-info" onclick= "window.location= '/users'">Register</button>
-<button class="btn btn-info">login</button>
-</div>
+<%- include('./partials/header', {
+    title: 'App Home',
+    homeLink: '/',
+    addPost: 'none',
+    showSearch: 'inline',
+    userLink: '#',
+    userImage: 'https://pbs.twimg.com/profile_images/1171786931/nota_icon_400x400.png',
+    userName: 'Sign in',
+    item1: 'Login',
+    item2: 'Register',
+    item3: 'Home',
+    link1: '/users/login',
+    link2: '/users/register',
+    link3: '/'    
+}); %>
+
+
+<% include ./partials/footer %>
+

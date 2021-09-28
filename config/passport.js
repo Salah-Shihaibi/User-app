@@ -10,7 +10,7 @@ module.exports = function (passport) {
       { usernameField: "email" },
       async (email, password, done) => {
         // Match user
-        let user = User.findOne({ email: email });
+        let user = await User.findOne({ email: email });
         if (!user) {
           return done(null, false, { message: "That email is not registered" });
         }

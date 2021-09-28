@@ -1,7 +1,7 @@
 <%- include('./partials/header', {
     title: 'App '+ user.name,
     homeLink: '/home',
-    addPost: 'inline',
+    addPost: 'none',
     showSearch: 'inline',
     userLink: '/dashboard',
     userImage: user.image,
@@ -14,8 +14,4 @@
     link3: '/users/logout'    
   }); %>
 
-  <img src="<%= user.image %>" alt="me">
-  <h3><%= user.name %></h3>
-
   <% include ./partials/footer%>
-
