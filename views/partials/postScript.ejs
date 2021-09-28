@@ -14,4 +14,16 @@
       toggle = !toggle
     }
   }
+
+  let toggle1 = true;
+  function toggleEditImage() {
+    let editImage = document.getElementById('editImage');
+    if (toggle1) {
+      editImage.style.display = 'block';
+      toggle1 = !toggle1
+    } else {
+      editImage.style.display = 'none';
+      toggle1 = !toggle1
+    }
+  }
 </script>

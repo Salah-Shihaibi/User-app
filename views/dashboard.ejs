@@ -15,7 +15,9 @@
     link3: '/users/logout',
     deleteUser: true,    
   }); %>
-  <% include ./partials/homeLSB%>
+  <%- include('./partials/homeLSB', {
+    editImage: true,
+  }); %>
 
   <%- include('./partials/posts', {
     URL: '/dashboard',
@@ -23,9 +25,6 @@
 
   <% include ./partials/homeRSB%>
   <% include ./partials/postScript%>
-
-  <img src="<%= user.image %>" alt="me">
-  <h3><%= user.name %></h3>
 
   <% include ./partials/footer%>
 

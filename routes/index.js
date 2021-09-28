@@ -84,8 +84,8 @@ router.get('/post/edit/:id', ensureAuthenticated, async (req, res) => {
   }
 })
 
-// @desc    Update story
-// @route   PUT /stories/:id
+// Update post
+// PUT /post/:id
 router.put('/post/:id', ensureAuthenticated, async (req, res) => {
   try {
     let post = await Post.findById(req.params.id)

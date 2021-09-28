@@ -139,8 +139,40 @@ router.get("/logout", (req, res) => {
   res.redirect("/users/login");
 });
 
+
+// Update user image
+// PUT /users/:id
+router.put('/:id', ensureAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id)
+
+    if (!user) {
+      return res.render('404')
+    }
+
+    if (user._id != req.user.id) {
+      res.redirect('/home')
+    } else {
+      await User.updateOne(
+        { _id: req.params.id },
+        {
+          $set: {
+            image: req.body.image,
+          },
+        }
+      );
+      res.redirect('/dashboard')
+    }
+  } catch (err) {
+    console.error(err)
+    return res.render('error')
+  }
+})
+
+
+
 // delete a user
-// @route   DELETE user/:id
+// @route   DELETE users/:id
 router.delete("/:id", ensureAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);

@@ -41,10 +41,12 @@
 
                             <div class="card-body">
                                 <div class="d-flex flex-start align-items-center">
-                                    <img onclick="location.replace('post/profile/<%= post.user._id%>')" style="cursor: pointer;"                                    " class="rounded-circle shadow-1-strong me-3" src="<%= post.user.image %>"
+                                    <img onclick="location.replace('post/profile/<%= post.user._id%>')" style="cursor: pointer;" 
+                                    class="rounded-circle shadow-1-strong me-3" 
+                                    src="<%= post.user.image %>"
                                     alt="avatar" width="60" height="60" />
                                     <div class="ml-3">
-                                        <h6 class="fw-bold text-primary mb-1">
+                                        <h6 class="fw-bold text-primary mb-1" onclick="location.replace('post/profile/<%= post.user._id%>')" style="cursor: pointer;" >
                                             <%= post.user.name %>
                                         </h6>
                                         <p class="text-muted small mb-0">
