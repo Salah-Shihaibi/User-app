@@ -5,7 +5,7 @@
                 <%if(typeof editImage != 'undefined'){%>
                 <img src="<%= user.image %>" alt="me" width='60' height='60'
                     class="rounded-circle shadow-1-strong mr-3">
-                <a href="#" onclick="toggleEditImage()">
+                <a href="#" onclick="toggleForm('editImage')">
                     <h6>Edit Image</h6>
                 </a>
                 <form id='editImage' style="display: none;" class="P-2 ml-auto m-1" action="/users/<%= user.id%>" method="POST">

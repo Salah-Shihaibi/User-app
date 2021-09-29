@@ -1,0 +1,87 @@
+<div class="card-footer py-3 border-0" style="background-color: #f8f9fa; display : none;" id=<%=post._id %> >
+    <% if(comments[i].length) { %>
+        <!-- post section  including comments-->
+        <% comments[i].forEach(function(comment) { %>
+            <!-- comments -->
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <p>
+                        <%=comment.commentDescription%>
+                    </p>
+
+                    <div class="d-flex justify-content-between" id = <%=comment._id%>>
+                        <div class="d-flex flex-row align-items-center">
+                            <img class="rounded-circle" src="<%= comment.user.image %>" alt="avatar" width="30"
+                            onclick="location.replace('post/profile/<%= post.user._id%>')"
+                            style="cursor: pointer;"    
+                            height="30" />
+                            <p class="small mb-0 ms-2 ml-1 text-primary"
+                            onclick="location.replace('post/profile/<%= post.user._id%>')"
+                            style="cursor: pointer;"><b>
+                                    <%= comment.user.name %>
+                            </b></p>
+                        </div>
+                        <div class='d-flex flex-row align-items-center mr-1'>
+                            <a href='#!' class='mr-1 d-flex flex-row align-items-center'>
+                                <p class="small mb-0">like</p>
+                                <i class="fa fa-thumbs-up mx-2 fa-xs" style="margin-top: -0.16rem;"></i>
+                                <p class="small mb-0 ">3</p>
+                            </a>
+                            <% if(comment.user._id==user.id){ %>
+                                <form class="" action="/comments/<%= comment._id%>" method="POST">
+                                    <input type="hidden" name="_method" value="delete">
+                                    <input style="display: none;" name="redirect" value=<%=URL+'#'+post._id %>>
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                                <%}%> 
+                        </div>
+                    </div>
+                    <% if(comment.user._id==user.id){ %>
+                    <p class="small mb-0 ms-2 ml-1 text-muted"                             
+                       style="cursor: pointer;" onclick="toggleForm('<%='editComment' +comment._id%>')">
+                        Edit comment 
+                    </p>
+                    <form style="display: none;"  
+                        action="/comments/<%= comment._id%>" method="POST" 
+                        id=<%='editComment' +comment._id%>>
+                            <input type="hidden" name="_method" value="PUT">
+                            <input style="display: none;" name="redirect" value=<%= URL+ '#' + comment._id%> >
+                            <div class='d-flex flex-row align-items-center mr-1'>
+                                <textarea class="form-control mr-1 " id="textAreaExample" rows="1"
+                                    style="background: #fff;" name="commentDescription" id="commentDescription"
+                                    value="<%= typeof commentDescription != 'undefined' ? commentDescription : '' %>"><%= comment.commentDescription %></textarea>
+                                <button class= 'btn btn-info'>Edit</button>
+                            </div>
+                    </form>
+                    <%}%>
+                </div>
+            </div>
+            <% }); %>
+                <% } else{ %>
+                    <p class="text-secondary">Be the first to comment on this post</p>
+                    <% } %>
+                        <!-- comment form -->
+                        <hr id=<%=post._id + 'form' %> >
+                        <% include ./messages %>
+                            <br>
+                            <form class='add-form' action="/comments" method="POST">
+                                <div class="d-flex flex-start">
+                                    <img class="rounded-circle shadow-1-strong me-3" src="<%= user.image %>"
+                                        alt="avatar" width="40" height="40" />
+                                    <div class="form-outline w-100 ml-2">
+                                        <textarea class="form-control" id="textAreaExample" rows="1"
+                                            style="background: #fff;" name="commentDescription" id="commentDescription"
+                                            value="<%= typeof commentDescription != 'undefined' ? commentDescription : '' %>"></textarea>
+                                        <label class="form-label text-muted small" for="textAreaExample">Comment
+                                            here</label>
+                                    </div>
+                                </div>
+                                <input id='post' name="post" value=<%=post._id %> style="display: none;"></input>
+                                <input id='URL' name="URL" value=<%=URL + '#' + post._id + 'form' %> style="display:
+                                none;"></input>
+                                <div class="float-end mt-2 pt-1">
+                                    <button type="submit" class="btn btn-primary btn-sm">Post comment</button>
+                                </div>
+                            </form>
+</div>

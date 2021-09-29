@@ -5,6 +5,7 @@ const passport = require("passport");
 // Load User model
 const User = require("../model/Users");
 const Post = require("../model/Posts");
+const Comment = require("../model/Comments");
 
 const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth");
 
@@ -183,6 +184,7 @@ router.delete("/:id", ensureAuthenticated, async (req, res) => {
     if (user._id != req.user.id) {
       res.render("error");
     } else {
+      await Comment.deleteMany({ user: req.params.id})
       await Post.deleteMany({ user: req.params.id})
       await User.deleteOne({ _id: req.params.id });
       res.redirect('/');

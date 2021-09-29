@@ -1,29 +1,12 @@
 <script>
-  let postFormButton = document.getElementById('showPostForm');
 
-  postFormButton.addEventListener('click', togglePostForm);
-
-  let toggle = true;
-  function togglePostForm() {
-    let postForm = document.getElementById('postForm');
-    if (toggle) {
-      postForm.style.display = 'block';
-      toggle = !toggle
-    } else {
-      postForm.style.display = 'none';
-      toggle = !toggle
+  function toggleForm(id) {
+    let form = document.getElementById(id);
+    if (form.style.display === 'block') {
+      form.style.display = 'none';
+    } else if(form.style.display === 'none'){
+      form.style.display = 'block';
     }
   }
 
-  let toggle1 = true;
-  function toggleEditImage() {
-    let editImage = document.getElementById('editImage');
-    if (toggle1) {
-      editImage.style.display = 'block';
-      toggle1 = !toggle1
-    } else {
-      editImage.style.display = 'none';
-      toggle1 = !toggle1
-    }
-  }
 </script>
