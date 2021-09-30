@@ -35,7 +35,7 @@
         <% if(posts.length) { %>
             <!-- post section  including comments-->
             <% posts.forEach(function(post,i) { %>
-                <div class="container">
+                <div class="container" id= <%= post._id %>>
                     <div class="row d-flex justify-content-center">
                         <div class="card">
                             <div class="card-body">
@@ -67,7 +67,7 @@
                                                 <i class="far fa-thumbs-up mr-1"></i>
                                                 <p class="mb-0 d-inline">22 Likes</p>
                                             </a>
-                                            <a onclick="toggleForm('<%= post._id%>')" href="<%='#'+ post._id + 'form'%>" class="p-2">
+                                            <a onclick="toggleForm('<%= post._id + '0'%>')" href="<%='#'+ post._id + 'form'%>" class="p-2">
                                                 <i class="far fa-comment mr-1"></i>
                                                 <p class="mb-0 d-inline">3 Comments</p>
                                             </a>
@@ -78,7 +78,7 @@
                                                     <input style="display: none;" name="redirect" value=<%=URL %> >
                                                     <button class="fabutton"><i class="fas fa-trash-alt btn btn-danger"></i></button>
                                                 </form>
-                                                <button class="fabutton" onclick="location.replace('/post/edit/<%= post._id%>')"><i class="far fa-edit btn  btn-warning m-1"></i></button>    
+                                                <button class="fabutton" onclick="location.replace('/post/edit/<%= post._id%><%=URL%>')"><i class="far fa-edit btn  btn-warning m-1"></i></button>    
                                                 <%}%>
                                         </div>
                             </div>

@@ -25,6 +25,8 @@
 
   <% include ./partials/homeRSB%>
   <% include ./partials/postScript%>
-
+  <%if(typeof query != 'undefined'){%>
+    <h1> <%= query.valid %></h1>
+  <%}%>
   <% include ./partials/footer%>
 

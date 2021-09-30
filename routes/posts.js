@@ -4,6 +4,7 @@ const { ensureAuthenticated, forwardAuthenticated } = require("../config/auth");
 const Post = require("../model/Posts");
 const Comment = require("../model/Comments");
 
+
 // view a profiles posts
 router.get("/profile/:id", ensureAuthenticated, async (req, res) => {
     if (req.params.id == req.user.id) {
@@ -35,10 +36,10 @@ router.get("/profile/:id", ensureAuthenticated, async (req, res) => {
         if (req.body.description) {
           req.body.user = req.user.id;
           await Post.create(req.body);
-          res.redirect(req.body.URL); // we'll change this late
+          res.redirect(req.body.URL); 
         } else {
           req.flash("error_msg", "Please provide a description");
-          res.redirect(req.body.URL); // we'll change this late
+          res.redirect(req.body.URL); 
         }
       }
     } catch (err) {
@@ -47,8 +48,8 @@ router.get("/profile/:id", ensureAuthenticated, async (req, res) => {
   });
   
   // @desc    Show edit page
-  // @route   GET /stories/edit/:id
-  router.get("/edit/:id", ensureAuthenticated, async (req, res) => {
+  // @route   GET /post/edit/:id
+  router.get("/edit/:id/:loc", ensureAuthenticated, async (req, res) => {
     try {
       const post = await Post.findOne({
         _id: req.params.id,
@@ -64,6 +65,7 @@ router.get("/profile/:id", ensureAuthenticated, async (req, res) => {
         res.render("editPost", {
           user: req.user,
           post,
+          loc: req.params.loc,
         });
       }
     } catch (err) {
@@ -72,7 +74,7 @@ router.get("/profile/:id", ensureAuthenticated, async (req, res) => {
     }
   });
   
-  // Update post
+  // Edit post
   // PUT /post/:id
   router.put("/:id", ensureAuthenticated, async (req, res) => {
     try {
@@ -89,8 +91,7 @@ router.get("/profile/:id", ensureAuthenticated, async (req, res) => {
           new: true,
           runValidators: true,
         });
-  
-        res.redirect("/dashboard");
+        res.redirect('/'+ req.body.loc + "#" + req.params.id);
       }
     } catch (err) {
       console.error(err);

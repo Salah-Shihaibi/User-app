@@ -24,7 +24,7 @@ router.post("/", ensureAuthenticated, async (req, res) => {
   });
   
   
-  // Update post
+  // Edit post
   // PUT /post/:id
   router.put('/:id', ensureAuthenticated, async (req, res) => {
     try {

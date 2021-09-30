@@ -13,10 +13,11 @@
      link1: '/dashboard' ,
       link2: '/home' ,
        link3: '/users/logout' }); %>
-    <div class="container m-5">
-        <div class="justify-content-center">
-            <div class="card">
-                <form class='add-form m-3' id='postForm' action="/post/<%= post._id%>" method="POST">
+
+<div class="row mt-5">
+    <div class="col-md-10 m-auto">
+      <div class="card card-body">
+                <form class='add-form' id='postForm' action="/post/<%= post._id%>" method="POST">
                     <input type="hidden" name="_method" value="PUT">
                     <div class="card card-body bg-light mb-4">
                         <div class="d-flex flex-start">
@@ -44,6 +45,7 @@
                                 <option value=false selected>Private</option>
                             <% } %>    
                         </select>
+                        <input name="loc" style="display: none;" value='<%=loc%>'></input>
                         <div class="float-end mt-2 pt-1">
                             <button type="submit" class="btn btn-primary btn-sm">Post story</button>
                         </div>

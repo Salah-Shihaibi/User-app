@@ -10,7 +10,7 @@ router.get("/", forwardAuthenticated, (req, res) => {
 });
 
 // Dashboard get user posts
-router.get("/dashboard", ensureAuthenticated, async (req, res) => {
+router.get("/dashboard/:id?", ensureAuthenticated, async (req, res) => {
   const userPosts = await Post.find({ user: req.user.id })
     .populate("user")
     .exec();
@@ -25,11 +25,12 @@ router.get("/dashboard", ensureAuthenticated, async (req, res) => {
     user: req.user,
     posts: userPosts.reverse(),
     comments: commentsOnUsersPost.reverse(),
+    passedId: req.params.id,
   });
 });
 
 // Get posts for home page
-router.get("/home", ensureAuthenticated, async (req, res) => {
+router.get("/home/:id?", ensureAuthenticated, async (req, res) => {
   const posts = await Post.find({ status: true }).populate("user").exec();
   let commentsOnEachPost = [];
   const userPostsId = posts.map((post) => post._id.toString());
@@ -42,6 +43,7 @@ router.get("/home", ensureAuthenticated, async (req, res) => {
     user: req.user,
     posts: posts.reverse(),
     comments: commentsOnEachPost.reverse(),
+    passedId: req.params.id,
   });
 });
 
