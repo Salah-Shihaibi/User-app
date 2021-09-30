@@ -15,7 +15,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         html {
-        scroll-behavior: smooth;
+            scroll-behavior: smooth;
+        }
+
+        @media (max-width: 992px) {
+            .space {
+                display: none;
+            }
         }
     </style>
     <title>
@@ -79,13 +85,12 @@
                         </a>
                         <hr>
                         <form style="display: <%= typeof deleteUser != 'undefined' ? 'block' : 'none' %>"
-                              class="text-center  mb-2" 
-                              action="/users/<%= typeof user != 'undefined' ? user.id : 'null'%>" 
-                              method="POST">
-                        <input type="hidden" name="_method" value="delete">
-                        <button class="btn btn-danger ">
-                            delete user?</button>
-                       </form>     
+                            class="text-center  mb-2"
+                            action="/users/<%= typeof user != 'undefined' ? user.id : 'null'%>" method="POST">
+                            <input type="hidden" name="_method" value="delete">
+                            <button class="btn btn-danger ">
+                                delete user?</button>
+                        </form>
                     </div>
                 </li>
             </ul>
