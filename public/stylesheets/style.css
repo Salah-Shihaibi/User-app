@@ -2,11 +2,36 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@media (max-width: 992px) {
+  .space {
+      display: none;
+  }
 }
 
-a {
-  color: #00090c;
+body {
+  font-family: Rubik,Arial,sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    overflow-x: hidden;
+    color: #0e1114;
 }
+
+
+a {
+  color: #354bc7;
+  font-weight: 500;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+a:hover {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.fabutton {
+  background: none;
+  padding: 0px;
+  border: none;
+}
+

@@ -19,7 +19,7 @@
 <div class="row mt-5">
   <div class="col-md-6 m-auto">
     <div class="card card-body">
-      <h1 class="text-center mb-3"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</h1>
+      <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i> Login</h1>
       <% include ./partials/messages %>
         <form action="/users/login" method="POST" class="mb-1">
           <div class="form-group">
@@ -30,9 +30,9 @@
             <label for="password">Password</label>
             <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password" />
           </div>
-          <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
+          <button type="submit" class="btn btn-primary col-md-10 btn-block m-auto"><i class="fas fa-sign-in-alt"></i> Login</button>
         </form>
-        <a class="btn btn-danger" href="/users/google"><i class="fa fa-google-plus-square fa-lg"></i>  Sign in with google</a>
+        <a class="btn btn-danger col-md-10 btn-block m-auto" href="/users/google"><i class="fab fa-google-plus-g"></i>  Sign in with google</a>
         <p class="lead mt-4">
           No Account? <a href="/users/register">Register</a>
         </p>

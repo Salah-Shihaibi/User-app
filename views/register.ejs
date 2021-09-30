@@ -16,11 +16,11 @@
 }); %>
 
 
-<div class="row mt-5">
+<div class="row mt-5 mb-5">
   <div class="col-md-6 m-auto">
     <div class="card card-body">
       <h1 class="text-center mb-3">
-        <i class="fa fa-sign-in" aria-hidden="true"></i> Register
+        <i class="fas fa-sign-in-alt"></i> Register
       </h1>
       <%- include("./partials/messages"); %>
         <form action="/users/register" method="POST">
@@ -44,8 +44,8 @@
             <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password"
               value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
           </div>
-          <button type="submit" class="btn btn-primary btn-block">
-            <i class="fa fa-sign-in" aria-hidden="true"></i> Register
+          <button type="submit" class="btn btn-primary col-md-8 btn-block m-auto">
+            <i class="fas fa-sign-in-alt"></i> Register
           </button>
         </form>
         <p class="lead mt-4">Have An Account? <a href="/users/login">Login</a></p>

@@ -1,7 +1,7 @@
 //const createError = require('http-errors');
 const express = require('express');
 const mongoose = require("mongoose");
-const expressLayouts = require('express-ejs-layouts');
+//const expressLayouts = require('express-ejs-layouts');
 const methodOverride = require('method-override')
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -34,8 +34,8 @@ mongoose.connect(
 
 
 // view engine setup
-app.use(expressLayouts);
-app.set('layout', './layouts/layout')
+//app.use(expressLayouts);
+//app.set('layout', './layouts/layout')
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 

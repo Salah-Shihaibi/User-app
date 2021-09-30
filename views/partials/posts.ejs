@@ -64,11 +64,11 @@
                                     <%}%>
                                         <div class="small d-flex">
                                             <a href="#!" class="p-2">
-                                                <i class="fa fa-thumbs-up d-inline mr-2"></i>
+                                                <i class="far fa-thumbs-up mr-1"></i>
                                                 <p class="mb-0 d-inline">22 Likes</p>
                                             </a>
                                             <a onclick="toggleForm('<%= post._id%>')" href="<%='#'+ post._id + 'form'%>" class="p-2">
-                                                <i class="fa fa-comment d-inline mr-2"></i>
+                                                <i class="far fa-comment mr-1"></i>
                                                 <p class="mb-0 d-inline">3 Comments</p>
                                             </a>
                                             <% if(post.user._id==user.id){ %>
@@ -76,10 +76,9 @@
                                                     method="POST">
                                                     <input type="hidden" name="_method" value="delete">
                                                     <input style="display: none;" name="redirect" value=<%=URL %> >
-                                                    <button class="btn btn-danger">Delete</button>
+                                                    <button class="fabutton"><i class="fas fa-trash-alt btn btn-danger"></i></button>
                                                 </form>
-                                                <button class="btn btn-success m-1"
-                                                    onclick="location.replace('/post/edit/<%= post._id%>')">Edit</button>
+                                                <button class="fabutton" onclick="location.replace('/post/edit/<%= post._id%>')"><i class="far fa-edit btn  btn-warning m-1"></i></button>    
                                                 <%}%>
                                         </div>
                             </div>
