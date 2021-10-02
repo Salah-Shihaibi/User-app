@@ -55,14 +55,16 @@
         </div>
 
         <!-- collapse item center-->
+        <% if(typeof location != 'undefined'){%>
         <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
             <div class="navbar-nav" style="display: <%= showSearch%>;">
-                <form class="form-inline nav-item">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search for post">
+                <form class="form-inline nav-item" action="<%= location%>" method="GET">
+                    <input class="form-control mr-sm-2" type="text" name= 'search' placeholder="Search for post">
                     <button class="btn btn-success" type="submit">Search</button>
                 </form>
             </div>
         </div>
+        <%}%>
 
         <!-- collapse item  right with dropdown-->
         <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
@@ -86,7 +88,8 @@
                             class="text-center  mb-2"
                             action="/users/<%= typeof user != 'undefined' ? user.id : 'null'%>" method="POST">
                             <input type="hidden" name="_method" value="delete">
-                            <button class="btn btn-danger ">
+                            <button class="btn btn-danger " 
+                            onclick="return confirm('Are you sure you want your user this will erase all your comments and posts?')">
                                 delete user?</button>
                         </form>
                     </div>

@@ -6,13 +6,22 @@ const Comment = require("../model/Comments");
 
 
 // view a profiles posts
-router.get("/profile/:id", ensureAuthenticated, async (req, res) => {
-    if (req.params.id == req.user.id) {
+router.get("/profile/:id/:pid?", ensureAuthenticated, async (req, res) => {
+    if (req.params.id === req.user.id) {
       res.redirect("/dashboard");
     } else {
-      const userPosts = await Post.find({ user: req.params.id, status: true })
-        .populate("user")
-        .exec();
+
+      let userPosts;
+        if(req.query.search){
+          userPosts = await Post.find({ user: req.params.id, status: true, description:  new RegExp(req.query.search, 'i') })
+            .populate("user")
+            .exec();    
+        }else{
+          userPosts = await Post.find({ user: req.params.id, status: true })
+            .populate("user")
+            .exec();
+        }  
+        
       let commentsOnEachPost = [];
       const userPostsId = userPosts.map((post) => post._id.toString());
       for (let i = 0; i < userPostsId.length; i++) {
@@ -24,7 +33,8 @@ router.get("/profile/:id", ensureAuthenticated, async (req, res) => {
         user: req.user,
         posts: userPosts.reverse(),
         comments: commentsOnEachPost.reverse(),
-        URL: '/post/profile/'+req.params.id
+        URL: '/post/profile/'+req.params.id,
+        passedId: req.params.pid,
       });
     }
   });
@@ -120,5 +130,36 @@ router.get("/profile/:id", ensureAuthenticated, async (req, res) => {
       return res.render("error");
     }
   });
+
+  // likes for the post section
+  router.post("/like", ensureAuthenticated, async (req, res) => {
+    const userLiked = await Post.findOne({_id: req.body.postId, 'likes.user': req.body.userId});
+    if(userLiked){
+      // edit the like value
+      const likeCondition = userLiked.likes.findIndex(x => x.user == req.body.userId)
+      await Post.updateOne(
+        { _id: req.body.postId, 'likes.user': req.body.userId}, 
+        { 
+          $set:{
+            'likes.$.value': !userLiked.likes[likeCondition].value,
+          }
+        }
+        );
+    }
+    else{
+      // push user to the like array
+      const userLiked = {user: req.body.userId, value: true}
+      await Post.updateOne(
+        { _id: req.body.postId}, 
+        { 
+          $push:{
+           likes: userLiked,
+          }
+        }
+        );
+    }
+    res.status(204).send();
+  });
+
   
   module.exports = router;

@@ -17,6 +17,10 @@ const postSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users',
   },
+  likes:{
+    type: Array,
+    default: []
+  },
   date: {
     type: Date,
     default: Date.now,

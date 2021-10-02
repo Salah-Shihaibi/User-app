@@ -10,11 +10,11 @@
                 <div class="card-body">
                     <div class="d-flex flex-row align-items-center mb-1">
                         <img class="rounded-circle" src="<%= comment.user.image %>" alt="avatar" width="30"
-                        onclick="location.replace('post/profile/<%= post.user._id%>')"
+                        onclick="location.replace('/post/profile/<%= comment.user._id%>')"
                         style="cursor: pointer;"    
                         height="30" />
                         <p class="small mb-0 ms-2 ml-1 text-primary"
-                        onclick="location.replace('post/profile/<%= post.user._id%>')"
+                        onclick="location.replace('/post/profile/<%= comment.user._id%>')"
                         style="cursor: pointer;"><b>
                                 <%= comment.user.name %>
                         </b></p>
@@ -26,15 +26,28 @@
                             <%=comment.commentDescription%>
                         </p>
                         <div class='d-flex flex-row align-items-center mr-1'>
-                            <a href='#!' class='mr-1 d-flex flex-row align-items-center'>
-                                <i class="far fa-thumbs-up mr-1"></i>
-                                <p class="small mb-0 ">3</p>
-                            </a>
+
+                            <%  let fillComment = 'far';
+                            let likesCountComment = 0;
+                            const commentLiked = comment.likes.find(x => x.user == user.id);
+                            if(commentLiked){if(commentLiked.value){fillComment = 'fas'}} ;
+                            comment.likes.forEach(isLiked => {if(isLiked.value) likesCountComment++ })%>    
+                            <form onclick="toggleClass('<%= comment._id + 'commentLike' %>', '<%=comment._id + 'likeInc'%>')"
+                            class = 'mr-1' action="/comments/like" method="POST">
+                            <input style="display: none;" name="userId" value= <%=user.id%>>   
+                            <input style="display: none;" name="commentId" value= <%=comment._id%>>     
+                            <button class="fabutton"><a class="P-2">
+                                <i id = '<%=comment._id + 'commentLike'%>' class="<%=fillComment%> fa-thumbs-up mr-1"></i>
+                                <p class="mb-0 d-inline"><span id = '<%=comment._id + 'likeInc'%>'><%= likesCountComment %></span></p>
+                            </a></button> 
+                            </form>
+
                             <% if(comment.user._id==user.id){ %>
                                 <form class="" action="/comments/<%= comment._id%>" method="POST">
                                     <input type="hidden" name="_method" value="delete">
                                     <input style="display: none;" name="redirect" value=<%=URL+'/' + post._id +'#'+post._id %>>
-                                    <button class="fabutton"><i class="fas fa-trash-alt btn btn-danger"></i></button>
+                                    <button class="fabutton" onclick="return confirm('Are you sure you want to delete this comment?')"
+                                    ><i class="fas fa-trash-alt btn btn-danger"></i></button>
                                 </form>
                                 <%}%> 
                         </div>

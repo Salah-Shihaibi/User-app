@@ -75,6 +75,36 @@ router.post("/", ensureAuthenticated, async (req, res) => {
       return res.render("error");
     }
   });
+
+  // likes for the comment section
+  router.post("/like", ensureAuthenticated , async (req, res) => {
+    const userLiked = await Comment.findOne({_id: req.body.commentId, 'likes.user': req.body.userId});
+    if(userLiked){
+      // edit the like value
+      const likeCondition = userLiked.likes.findIndex(x => x.user == req.body.userId)
+      await Comment.updateOne(
+        { _id: req.body.commentId, 'likes.user': req.body.userId}, 
+        { 
+          $set:{
+            'likes.$.value': !userLiked.likes[likeCondition].value,
+          }
+        }
+        );
+    }
+    else{
+      // push user to the like array
+      const userLiked = {user: req.body.userId, value: true}
+      await Comment.updateOne(
+        { _id: req.body.commentId}, 
+        { 
+          $push:{
+           likes: userLiked,
+          }
+        }
+        );
+    }
+    res.status(204).send();
+  });
   
 
  

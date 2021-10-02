@@ -13,7 +13,8 @@
     link1: '/dashboard',
     link2: '/home',
     link3: '/users/logout',
-    deleteUser: true,    
+    deleteUser: true,  
+    location: '/dashboard'  
   }); %>
   <%- include('./partials/homeLSB', {
     editImage: true,
@@ -25,8 +26,5 @@
 
   <% include ./partials/homeRSB%>
   <% include ./partials/postScript%>
-  <%if(typeof query != 'undefined'){%>
-    <h1> <%= query.valid %></h1>
-  <%}%>
   <% include ./partials/footer%>
 

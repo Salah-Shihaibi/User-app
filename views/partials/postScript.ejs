@@ -1,6 +1,5 @@
 <script>
   function toggleForm(id) {
-    console.log(id)
     let form = document.getElementById(id);
     if (form.style.display === 'block') {
       form.style.display = 'none';
@@ -8,4 +7,20 @@
       form.style.display = 'block';
     }
   }
+
+ function toggleClass(id,idInc){
+    // check for a class, remove the existing class and add a new class
+    let button = document.getElementById(id);
+    const check = button.classList.contains('far')
+    if(check){
+      button.classList.remove('far');
+      button.classList.add("fas");
+      document.getElementById(idInc).innerHTML ++
+    } 
+    else{
+      button.classList.remove('fas');
+      button.classList.add("far");
+      document.getElementById(idInc).innerHTML --
+    }
+ }  
 </script>

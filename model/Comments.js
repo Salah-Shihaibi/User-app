@@ -14,6 +14,10 @@ const commentSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Posts',
   },
+  likes:{
+    type: Array,
+    default: []
+  },
   date: {
     type: Date,
     default: Date.now,

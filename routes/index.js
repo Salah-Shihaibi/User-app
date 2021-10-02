@@ -11,9 +11,19 @@ router.get("/", forwardAuthenticated, (req, res) => {
 
 // Dashboard get user posts
 router.get("/dashboard/:id?", ensureAuthenticated, async (req, res) => {
-  const userPosts = await Post.find({ user: req.user.id })
-    .populate("user")
-    .exec();
+  let userPosts
+  if(req.query.search){
+     userPosts = await Post.find({ user: req.user.id, description:  new RegExp(req.query.search, 'i') })
+        .sort('-date')
+        .populate("user")
+        .exec();
+  }else{
+     userPosts = await Post.find({ user: req.user.id })
+        .sort('-date')
+        .populate("user")
+        .exec();
+  }    
+     
   let commentsOnUsersPost = [];
   const userPostsId = userPosts.map((post) => post._id.toString());
   for (let i = 0; i < userPostsId.length; i++) {
@@ -23,16 +33,28 @@ router.get("/dashboard/:id?", ensureAuthenticated, async (req, res) => {
   }
   res.render("dashboard", {
     user: req.user,
-    posts: userPosts.reverse(),
-    comments: commentsOnUsersPost.reverse(),
+    posts: userPosts,
+    comments: commentsOnUsersPost,
     passedId: req.params.id,
   });
 });
 
+
 // Get posts for home page
 router.get("/home/:id?", ensureAuthenticated, async (req, res) => {
-  const posts = await Post.find({ status: true }).populate("user").exec();
+  let postLimit = 30;
+  if(req.query.limit) postLimit = Number(req.query.limit) + 30
+
+  let post;
+  if(req.query.search){
+     posts = await Post.find({ status: true , description:  new RegExp(req.query.search, 'i')})
+    .sort('-date').limit(postLimit).populate("user").exec();    
+  }else{
+    posts = await Post.find({ status: true })
+    .sort('-date').limit(postLimit).populate("user").exec();
+  }   
   let commentsOnEachPost = [];
+
   const userPostsId = posts.map((post) => post._id.toString());
   for (let i = 0; i < userPostsId.length; i++) {
     commentsOnEachPost.push(
@@ -41,11 +63,13 @@ router.get("/home/:id?", ensureAuthenticated, async (req, res) => {
   }
   res.render("home", {
     user: req.user,
-    posts: posts.reverse(),
-    comments: commentsOnEachPost.reverse(),
+    posts: posts,
+    comments: commentsOnEachPost,
     passedId: req.params.id,
+    limit: postLimit
   });
 });
+
 
 
 module.exports = router;
